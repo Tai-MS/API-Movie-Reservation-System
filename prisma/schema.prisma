@@ -29,4 +29,42 @@ model User {
   email    String     @unique @db.VarChar(255)
   status   UserStatus
   role     UserRole
+  token    String? 
+  token_lifetime DateTime?  
+  tickets  Ticket[]   
+}
+
+model Room {
+  id          Int        @id @default(autoincrement())
+  calendar_id Int        @db.Int()
+  calendar    Calendar   @relation(fields: [calendar_id], references: [id])
+  tickets     Ticket[]   
+}
+
+model Movie {
+  id          Int        @id @default(autoincrement())
+  title       String     @db.VarChar(255)
+  description String     @db.VarChar(255)
+  duration    Float      @db.Float()
+  calendar_id Int        @db.Int()
+  calendar    Calendar   @relation(fields: [calendar_id], references: [id])
+  tickets     Ticket[]   
+}
+
+model Calendar {
+  id       Int        @id @default(autoincrement())
+  date     DateTime   @db.DateTime() 
+  time     DateTime   @db.DateTime() 
+  rooms    Room[]     
+  movies   Movie[]    
+}
+
+model Ticket {
+  id       Int    @id @default(autoincrement())
+  movie_id Int    @db.Int()
+  room_id  Int    @db.Int()
+  user_id  Int    @db.Int()
+  movie    Movie  @relation(fields: [movie_id], references: [id])
+  room     Room   @relation(fields: [room_id], references: [id])
+  user     User   @relation(fields: [user_id], references: [id])
 }
