@@ -1,16 +1,19 @@
-import { Body, Controller, Get, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Res, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Response } from 'express';
+import { AuthGuard } from 'src/guards/authGuard';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Get('/getUser')
+  @UseGuards(AuthGuard)
   getUser(@Body() email: { email: string }) {
     return this.userService.getUser(email.email);
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   getAllUsers() {
     return 'users';
   }
@@ -24,6 +27,7 @@ export class UserController {
   }
 
   @Put('/update')
+  @UseGuards(AuthGuard)
   updateUser(
     @Body() data: { username: string; email: string; password: string },
   ) {
@@ -32,6 +36,7 @@ export class UserController {
   }
 
   @Put('/delete')
+  @UseGuards(AuthGuard)
   deleteUser(@Body() email: { email: string }) {
     const deleteUser = this.userService.deleteUser(email.email);
     return deleteUser;

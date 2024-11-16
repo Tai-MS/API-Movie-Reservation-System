@@ -13,6 +13,19 @@ enum UserStatus {
   AVAILABLE
   DISABLE
 }
+
+enum RoomStatus {
+  AVAILABLE
+  UNAVAILABLE
+  MAINTENANCE
+}
+
+enum MovieStatus {
+  TO_SHOW
+  SHOWING
+  STOP_SHOWING
+  UNAVAILABLE
+}
 generator client {
   provider = "prisma-client-js"
 }
@@ -36,18 +49,22 @@ model User {
 
 model Room {
   id          Int        @id @default(autoincrement())
-  calendar_id Int        @db.Int()
-  calendar    Calendar   @relation(fields: [calendar_id], references: [id])
+  calendar_id Int?        //@db.Int()
+  calendar    Calendar?   @relation(fields: [calendar_id], references: [id])
+  status RoomStatus
+  capacity Int        @db.Int()
   tickets     Ticket[]   
+  freeSits    Int        @db.Int() @default(0)
 }
 
 model Movie {
   id          Int        @id @default(autoincrement())
   title       String     @db.VarChar(255)
   description String     @db.VarChar(255)
-  duration    Float      @db.Float()
-  calendar_id Int        @db.Int()
-  calendar    Calendar   @relation(fields: [calendar_id], references: [id])
+  duration    Int      @db.Int()
+  calendar_id Int?        //@db.Int()
+  calendar    Calendar?   @relation(fields: [calendar_id], references: [id])
+  status MovieStatus
   tickets     Ticket[]   
 }
 

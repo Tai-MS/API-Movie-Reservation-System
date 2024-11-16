@@ -155,19 +155,19 @@ export class UserService {
     }
   }
 
-  async verifyToken(token: string) {
-    try {
-      const findUser = await this.prisma.user.findFirst({
-        where: {
-          token: token,
-          token_lifetime: {
-            gt: new Date(),
-          },
-        },
-      });
-      return findUser;
-    } catch (error) {
-      return error;
-    }
-  }
+  // async verifyToken(token: string) {
+  //   try {
+  //     const findUser = await this.prisma.user.findFirst({
+  //       where: {
+  //         token: token,
+  //         token_lifetime: {
+  //           gt: new Date(),
+  //         },
+  //       },
+  //     });
+  //     return findUser;
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // }
 }
