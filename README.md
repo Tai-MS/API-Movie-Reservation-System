@@ -1,7 +1,7 @@
 # About this project
 
 This project follows the idea of RoadMap.sh.
-Here you can find all the details: [https://roadmap.sh/projects/movie-reservation-system](url)
+Here you can find all the details: <https://roadmap.sh/projects/movie-reservation-system>
 Code written by: Taiel Sagretti (@Tai-MS).
 
 With this project I want to show my skills on technologies that I haven't shown yet on my GitHub and push me into new tools for my backend role.
